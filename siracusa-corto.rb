@@ -3,9 +3,9 @@
 #
 # por @aldrinmartoq
 
-$c = [0,3,1,7,2]
+$c = [0,3,1]
 def s(i)
   return $c[i] if $c[i]
   s(i.even? ? i/2 : i*3+1) + 1
 end
-puts (1..ARGV[0].to_i).map { |i| s(i) }.each_with_index.max.last + 1
+puts (1..ARGV[0].to_i).map { |i| s(i) }.each_with_index.max[1] + 1

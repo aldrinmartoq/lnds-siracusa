@@ -13,11 +13,11 @@
 #
 # por @aldrinmartoq
 
-$c = [0,3,1,7,2]
+$c = [0,3,1]
 def s(i)
   return $c[i] if $c[i]
   b = s(i.even? ? i/2 : i*3+1) + 1
   $c[i] = b if i < 10_000_000 # ajustar caché según RAM disponible
   return b # jruby requiere este return… *sigh*
 end
-puts (1..ARGV[0].to_i).map { |i| s(i) }.each_with_index.max.last + 1
+puts (1..ARGV[0].to_i).map { |i| s(i) }.each_with_index.max[1] + 1
