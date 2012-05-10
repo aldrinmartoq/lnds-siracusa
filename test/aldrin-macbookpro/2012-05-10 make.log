@@ -1,0 +1,53 @@
+aldrin-macbookpro:lnds-siracusa amartoq$ make 
+clang -O4    siracusa-performante.c   -o siracusa-performante
+clang -O4    siracusa-optm-1.c   -o siracusa-optm-1
+clang -O4    siracusa-optm-2.c   -o siracusa-optm-2
+clang -O4    siracusa-lnds-1.c   -o siracusa-lnds-1
+clang -O4    siracusa-lnds-2.c   -o siracusa-lnds-2
+for n in 1000000 10000000 50000000 100000000 1000000000 ; do \
+		echo "n = $n"; \
+		cat /dev/null > run-$n.txt; \
+		for prog in siracusa-performante siracusa-optm-1 siracusa-optm-2 siracusa-lnds-1 siracusa-lnds-2 ; do \
+			printf "%20s %10s " $prog $n >> run-$n.txt; \
+			/usr/bin/time -p ./$prog $n > tmp.txt 2>&1; \
+			printf "%10s %s %s " `head -1 tmp.txt` clang -O4 >> run-$n.txt; \
+			grep real tmp.txt | awk '{print $2}' >> run-$n.txt; \
+			tail -1 run-$n.txt; \
+			done; \
+		echo; \
+	done
+n = 1000000
+siracusa-performante    1000000     837799 clang -O4 0.09
+     siracusa-optm-1    1000000     837799 clang -O4 0.09
+     siracusa-optm-2    1000000     837799 clang -O4 0.10
+     siracusa-lnds-1    1000000     837799 clang -O4 0.45
+     siracusa-lnds-2    1000000     837799 clang -O4 0.29
+
+n = 10000000
+siracusa-performante   10000000    8400511 clang -O4 1.78
+     siracusa-optm-1   10000000    8400511 clang -O4 1.74
+     siracusa-optm-2   10000000    8400511 clang -O4 1.38
+     siracusa-lnds-1   10000000    8400511 clang -O4 5.08
+     siracusa-lnds-2   10000000    8400511 clang -O4 3.52
+
+n = 50000000
+siracusa-performante   50000000   36791535 clang -O4 12.83
+     siracusa-optm-1   50000000   36791535 clang -O4 12.64
+     siracusa-optm-2   50000000   36791535 clang -O4 9.75
+     siracusa-lnds-1   50000000   36791535 clang -O4 28.28
+     siracusa-lnds-2   50000000   36791535 clang -O4 19.86
+
+n = 100000000
+siracusa-performante  100000000   63728127 clang -O4 29.78
+     siracusa-optm-1  100000000   63728127 clang -O4 29.68
+     siracusa-optm-2  100000000   63728127 clang -O4 22.45
+     siracusa-lnds-1  100000000   63728127 clang -O4 58.66
+     siracusa-lnds-2  100000000   63728127 clang -O4 42.16
+
+n = 1000000000
+siracusa-performante 1000000000  670617279 clang -O4 428.20
+     siracusa-optm-1 1000000000  670617279 clang -O4 424.58
+     siracusa-optm-2 1000000000  670617279 clang -O4 311.83
+     siracusa-lnds-1 1000000000  670617279 clang -O4 662.16
+     siracusa-lnds-2 1000000000  670617279 clang -O4 477.98
+
