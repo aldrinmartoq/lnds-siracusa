@@ -5,17 +5,15 @@ PROGS=\
 siracusa-performante \
 siracusa-optm-1 \
 siracusa-optm-2 \
-
-NO=\
 siracusa-lnds-1 \
 siracusa-lnds-2 \
 
 RUNS=\
 1000000 \
 10000000 \
-20000000 \
-30000000 \
-
+50000000 \
+100000000 \
+1000000000 \
 
 all: test
 
